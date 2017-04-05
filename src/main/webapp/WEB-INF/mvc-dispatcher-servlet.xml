@@ -45,6 +45,7 @@
 		<beans:property name="annotatedClasses">
 			<beans:list>
 				<beans:value>com.mart.db.model.User</beans:value>
+				
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
