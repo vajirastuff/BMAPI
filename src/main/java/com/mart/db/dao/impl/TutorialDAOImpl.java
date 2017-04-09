@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.mart.db.dao.TutorialDAO;
 import com.mart.db.model.Tutorial;
+import com.mart.db.model.User;
 
 @Repository
 public class TutorialDAOImpl implements TutorialDAO {
@@ -33,30 +34,56 @@ public class TutorialDAOImpl implements TutorialDAO {
 	@Override
 	public void updateTotorial(Tutorial T) {
 		// TODO Auto-generated method stub
-		
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(T);
+		logger.info("Tutorial Update Successfully..!");
 	}
 
 	@Override
 	public List<Tutorial> ListTutorial() {
 		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Tutorial> tutoriallist = session.createQuery("from Tutorial").list();
+		for(Tutorial u : tutoriallist){
+			logger.info("Tutorial List::"+u);
+		}
 		return null;
 	}
 
 	@Override
-	public int getTutorialIDByHeader(String Header) {
+	public Tutorial getTutorialIDByHeader(String Header) {
 		// TODO Auto-generated method stub
-		return 0;
+		
+		Session session = this.sessionFactory.getCurrentSession();		
+		Tutorial p = (Tutorial) session.load(Tutorial.class, new String(Header));
+		logger.info("Tutorial loaded successfully, Tutorial details="+p);
+		
+		return p;
+		
 	}
 
 	@Override
-	public int getTutorialIDByDescription(String Search) {
+	public Tutorial getTutorialIDByDescription(String Search) {
 		// TODO Auto-generated method stub
-		return 0;
+		Session session = this.sessionFactory.getCurrentSession();		
+		Tutorial p = (Tutorial) session.load(Tutorial.class, new String(Search));
+		logger.info("Tutorial loaded successfully, Tutorial details="+p);
+		
+		return p;
 	}
 
 	@Override
 	public boolean RemoveTurorialByID(int ID) {
 		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
+		Tutorial u = (Tutorial) session.load(Tutorial.class, new Integer(ID));
+		if(null != u){
+			session.delete(u);
+			logger.info("Tutorial deleted successfully, Tutorial details="+u);
+			return true;
+		}
+		
+		
 		return false;
 	}
 

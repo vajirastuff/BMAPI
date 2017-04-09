@@ -45,7 +45,7 @@
 		<beans:property name="annotatedClasses">
 			<beans:list>
 				<beans:value>com.mart.db.model.User</beans:value>
-				
+				<beans:value>com.mart.db.model.Tutorial</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
@@ -61,6 +61,14 @@
 	</beans:bean>
 	<beans:bean id="userService" class="com.mart.service.impl.UserServiceImpl">
 		<beans:property name="userDAO" ref="userDAO"></beans:property>
+	</beans:bean>
+	
+	
+	<beans:bean id="tutorialDAO" class=" com.mart.db.dao.impl.TutorialDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="userService" class="com.mart.service.impl.TutorialServiceImpl">
+		<beans:property name="tutorialDAO" ref="tutorialDAO"></beans:property>
 	</beans:bean>
 	
 	
